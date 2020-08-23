@@ -44,21 +44,14 @@ module.exports.handler = async (event, context) => {
           ]);
           console.log('deleted files');
 
-          return resolve({
-            statusCode: 200,
-            headers: {
-              'Access-Control-Allow-Origin': '*',
-              'Access-Control-Allow-Credentials': true
-            },
-            body: JSON.stringify({
-              url: result.Content.Location,
-              files: lsOutput.trim().split('\n').map(line => {
-                const withoutDuplicateSpaces = formatLine(line);
-                const parts = withoutDuplicateSpaces.split(' ');
-                return [parts[7].replace(`${decompressedDirectory}/`, ''), parts[4], `${parts[5]} ${parts[6]}`, parts[0]]
-              })
+          return resolve(formatResponse(200, {
+            url: result.Content.Location,
+            files: lsOutput.trim().split('\n').map(line => {
+              const withoutDuplicateSpaces = formatLine(line);
+              const parts = withoutDuplicateSpaces.split(' ');
+              return [parts[7].replace(`${decompressedDirectory}/`, ''), parts[4], `${parts[5]} ${parts[6]}`, parts[0]]
             })
-          })
+          }));
         });
         res.on('error', (err) => {
           console.log('error http.get', err);
