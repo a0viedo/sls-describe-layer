@@ -1,0 +1,26 @@
+service: sls-describe-layer
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - lambda:GetLayerVersion
+      Resource: arn:aws:lambda:*:*:layer:*:*
+
+layers:
+  layer:
+    path: layer
+
+functions:
+  describe-layer:
+    handler: index.handler
+    events:
+      - http:
+          path: /
+          method: GET
+          cors: true
+    layers:
+      - { Ref: LayerLambdaLayer }
+    timeout: 25

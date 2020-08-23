@@ -1,0 +1,16 @@
+{
+  "name": "sls-describe-layer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Alejandro Oviedo <alejandro.oviedo.g@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.4.16",
+    "rimraf-promise": "^2.0.0"
+  }
+}
